@@ -16,7 +16,7 @@ def processImg(rawImg):
     imArray = imArray[:len(imArray)-5]
     print(imArray.shape)
     img = Image.fromarray(numpy.uint8(imArray * 255))
-    img.show()
+    # img.show()
 
     for i in range(1,24):
         for j in range(1,69):
@@ -38,7 +38,7 @@ def processImg(rawImg):
             if imArray[i+1][j-1] == True:
                 whitecount += 1
 
-            if whitecount >= 5:
+            if whitecount >= 6:
                 imArray[i][j] = True
 
     for i in range(1,23):
@@ -52,9 +52,7 @@ def processImg(rawImg):
 
 
     img = Image.fromarray(numpy.uint8(imArray * 255))
-    img.show()
 
-    img.save('./1.png')
     return img
 
 if __name__ == '__main__':

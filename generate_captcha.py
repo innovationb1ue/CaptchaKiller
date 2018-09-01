@@ -1,10 +1,9 @@
-from captcha.image import ImageCaptcha
 from PIL import Image
 import numpy as np
 import random
 import string
 import os
-
+import random
 class generateCaptcha():
     def __init__(self,
                  width = 70,#验证码图片的宽
@@ -18,13 +17,15 @@ class generateCaptcha():
         self.classes = len(characters)
 
     def gen_captcha(self,batch_size = 50):
-        inputPath = './generateTest/'
+        path = os.path.abspath('.')
+        inputPath = path + '/rawCaptcha/'
         X = np.zeros([batch_size,self.height,self.width,1])
         # 50 big arrays, each have 70
         Y = np.zeros([batch_size,self.char_num,self.classes])
         # image = ImageCaptcha(width = self.width,height = self.height)
 
         captcha_str_with_png = os.listdir(inputPath)
+        random.shuffle(captcha_str_with_png)
         captcha_str_list = []
         for i in captcha_str_with_png:
             captcha_str_list.append(i[:4])
@@ -41,7 +42,8 @@ class generateCaptcha():
                 img = Image.open(inputPath+captcha_str_with_png[captcha_count]).convert('L')
                 #####
                 captcha_count += 1
-
+                if captcha_count == 93:
+                    captcha_count = 0
                 img = np.array(img)
                 X[i] = np.reshape(img,[self.height,self.width,1])/255.0
                 for j,ch in enumerate(captcha_str):

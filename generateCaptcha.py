@@ -65,6 +65,6 @@ def gene_code():
 x=1
 # if __name__ == "__main__":
 # for k in(1,1000):
-while x<500:
+while x<2:
      gene_code()
      x+=1
